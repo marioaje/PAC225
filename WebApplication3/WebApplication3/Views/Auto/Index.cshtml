@@ -1,0 +1,50 @@
+﻿@* autoDatos
+List<AutoModel>
+    autoDatos = new List<AutoModel>
+        (); *@
+
+@model List<WebApplication3.Models.AutoModel>
+
+@{
+    ViewData["Title"] = "Lista Autos";
+}
+
+
+<h1>Seccion de autos</h1>
+
+
+<a asp-action="Crear" class="btn btn-primary">Nuevo</a>
+
+<div class="table-responsive">
+    <table class="table table-primary">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">IsActive</th>
+                <th scope="col">Marca</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach(var items in Model){
+                <tr class="">
+                    <td scope="row">@items.Id</td>
+                    <td>@items.Name</td>
+                    <td>@items.Description</td>
+                    <td>@items.IsActive</td>
+                    <td>@items.Marca</td>
+                    <td>
+
+                        <a asp-action="Editar" asp-route-id="@items.Id"  class="btn btn-success">Editar</a>
+                            ||
+                        <a asp-action="Eliminar" asp-route-id="@items.Id" class="btn btn-danger">Eliminar</a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

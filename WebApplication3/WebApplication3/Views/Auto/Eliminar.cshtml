@@ -1,0 +1,42 @@
+﻿@model WebApplication3.Models.AutoModel
+
+@{
+    ViewData["Title"] = "Eliminar Autos";
+}
+
+
+<h2>Esta seguro de que quieres elminar el registro</h2>
+
+<div>
+    <h3>@Model.Name</h3>
+    <p>Description: @Model.Description</p>
+    <p>IsActive: @Model.IsActive</p>
+    <p>Marca: @Model.Marca</p>
+    <p>Id: @Model.Id</p>
+</div>
+
+
+<form asp-action="EliminarRegistro" method="post">
+
+    <input asp-for="Id"  type="hidden" />
+
+    <div class="row justify-content-center align-items-center g-2">
+        <div class="col">
+
+
+            <button asp-action"Index" class="btn btn-warning">
+                Cancelar
+            </button>
+
+            <button type="submit" class="btn btn-danger">
+                Eliminar
+            </button>
+
+        </div>
+
+    </div>
+
+
+</form>
+
+     

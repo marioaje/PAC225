@@ -1,0 +1,49 @@
+﻿@model WebApplication3.Models.AutoModel
+
+@{
+    ViewData["Title"] = "Lista Autos";
+}
+
+
+<h1>Formulario de crear</h1>
+
+
+
+<form asp-action="Crear" method="post">
+
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input class="form-control" asp-for="Name"  placeholder="" required />
+        <small id="helpId" class="form-text text-muted">Help text</small>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <input class="form-control" asp-for="Description" placeholder="" required />
+        <small id="helpId" class="form-text text-muted">Help text</small>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Marca</label>
+        <input class="form-control" asp-for="Marca" placeholder="" required />
+        <small id="helpId" class="form-text text-muted">Help text</small>
+    </div>
+  
+    <div class="row justify-content-center align-items-center g-2">
+        <div class="col">
+
+
+            <button type="reset" class="btn btn-danger">
+                Limpiar
+            </button>
+
+            <button type="submit" class="btn btn-primary">
+                Crear
+            </button>
+
+        </div>
+
+    </div>
+
+
+</form>
