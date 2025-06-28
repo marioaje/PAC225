@@ -3,12 +3,12 @@ using Sistema_de_Administracion.Data;
 using Microsoft.EntityFrameworkCore;
 using Sistema_de_Administracion.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
-using System.Web.Mvc;
 
 
 
 
-namespace Sistema_de_Administracion.Controller
+
+namespace Sistema_de_Administracion.Controllers
 {
     public class ProductoController : Controller
     {
@@ -40,7 +40,7 @@ namespace Sistema_de_Administracion.Controller
             if (ModelState.IsValid) { 
                 _context.Add(_producto);
                 await _context.SaveChangesAsync();
-                return RedirectToActionResult(Index());
+                return RedirectToAction(nameof(Index));
             }
 
             return View(_producto);
@@ -67,7 +67,7 @@ namespace Sistema_de_Administracion.Controller
         //Post: Producto/Editar/id
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async async <IActionResult> Editar( int _id, ProductoModel _producto )
+        public async Task<IActionResult> Editar( int _id, ProductoModel _producto )
         {
             if ( _id != _producto.Id)
             {
@@ -78,10 +78,10 @@ namespace Sistema_de_Administracion.Controller
             {
                 _context.Update(_producto);
                 await _context.SaveChangesAsync();
-                return RedirectToActionResult(nameof(Index));
+                return RedirectToAction(nameof(Index));
             }
 
-            return View(_producto)
+            return View(_producto);
         }
 
 
@@ -109,7 +109,7 @@ namespace Sistema_de_Administracion.Controller
         //Post: Producto/Editar/id
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async async<IActionResult> Eliminar(int _id)
+        public async Task<IActionResult> Eliminar(int _id)
         {
 
             var producto = await _context.Producto.FindAsync(_id);
@@ -119,7 +119,7 @@ namespace Sistema_de_Administracion.Controller
                 await _context.SaveChangesAsync(    );
             }
 
-            return RedirectToActionResult(nameof(Index));
+            return RedirectToAction(nameof(Index));
 
 
             
