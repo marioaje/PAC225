@@ -1,32 +1,37 @@
-﻿@model IEnumerable<Sistema_de_Administracion.Models.ProductoModel>
+﻿@{
+    Layout = "_Layout";
+}
+
+
+@model IEnumerable<Sistema_de_Administracion.Models.ProductoModel>
 
 <h1>Lista de Datos</h1>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Descripcion</th>
-            @* <th>IsActive</th> *@
-            <th>Marca</th>
-        </tr>
-    </thead>
-    <tbody>
+<a asp-action="Create" class="btn btn-primary">Nuevo registro </a>
 
-        @foreach( var item in Model){
+<div class="table-responsive">
+    <table class="table table-primary">
+        <thead>
             <tr>
-                <td>@item.Id</td>
-                <td>@item.Name</td>
-                <td>@item.Descripcion</td>
-                @* <td>@item.IsActive</td> *@
-                <td>@item.Marca</td>
-                
+                <th>Id</th>
+                <th>Name</th>
+                <th>Descripcion</th>
+                @* <th>IsActive</th> *@
+                <th>Marca</th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Descripcion</td>
+                    @* <td>@item.IsActive</td> *@
+                    <td>@item.Marca</td>
 
+                </tr>
+            }
 
-    </tbody>
-
-
-    
-</table>
+        </tbody>
+    </table>
+</div>
