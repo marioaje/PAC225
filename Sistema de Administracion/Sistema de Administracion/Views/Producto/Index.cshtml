@@ -7,7 +7,7 @@
             <th>Id</th>
             <th>Name</th>
             <th>Descripcion</th>
-            <th>IsActive</th>
+            @* <th>IsActive</th> *@
             <th>Marca</th>
         </tr>
     </thead>
@@ -18,7 +18,7 @@
                 <td>@item.Id</td>
                 <td>@item.Name</td>
                 <td>@item.Descripcion</td>
-                <td>@item.IsActive</td>
+                @* <td>@item.IsActive</td> *@
                 <td>@item.Marca</td>
                 
             </tr>
@@ -30,14 +30,3 @@
 
     
 </table>
-
-
-
-
-    public class ProductoModel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Descripcion { get; set; }
-        public bool IsActive { get; set; }
-        public string Marca { get; set; }
