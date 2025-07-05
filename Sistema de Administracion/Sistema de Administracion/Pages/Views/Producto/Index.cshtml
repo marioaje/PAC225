@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Sistema_de_Administracion.Models.ProductoModel>
+
+<h1>Lista de Datos</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Descripcion</th>
+            <th>IsActive</th>
+            <th>Marca</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach( var item in Model){
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Descripcion</td>
+                <td>@item.IsActive</td>
+                <td>@item.Marca</td>
+                
+            </tr>
+        }
+
+
+    </tbody>
+
+
+    
+</table>
+
+
+
+
+    public class ProductoModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Descripcion { get; set; }
+        public bool IsActive { get; set; }
+        public string Marca { get; set; }
