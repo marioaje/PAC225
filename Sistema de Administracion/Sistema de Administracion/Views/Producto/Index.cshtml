@@ -6,7 +6,64 @@
 @model IEnumerable<Sistema_de_Administracion.Models.ProductoModel>
 
 <h1>Lista de Datos</h1>
-<a asp-action="Create" class="btn btn-primary">Nuevo registro </a>
+
+
+
+<div class="container">
+
+
+    <div class="mb-3">
+        <label for="" class="form-label">Id</label>
+        <input type="text"
+               class="form-control"
+               name="id"
+               id="id"
+               aria-describedby="helpId"
+               placeholder="" />
+        <small id="helpId" class="form-text text-muted">Help text id</small>
+    </div>
+
+
+    <div class="mb-3">
+        <label for="" class="form-label">Name</label>
+        <input type="text"
+               class="form-control"
+               name="name"
+               id="name"
+               aria-describedby="helpId"
+               placeholder="" />
+        <small id="helpId" class="form-text text-muted">Help text name</small>
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Descripcion</label>
+        <input type="text"
+               class="form-control"
+               name="descripcion"
+               id="descripcion"
+               aria-describedby="helpId"
+               placeholder="" />
+        <small id="helpId" class="form-text text-muted">Help text descripcion</small>
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Marca</label>
+        <input type="text"
+               class="form-control"
+               name="marca"
+               id="marca"
+               aria-describedby="helpId"
+               placeholder="" />
+        <small id="helpId" class="form-text text-muted">Help text Marca</small>
+    </div>
+
+    <a id="guardarDatos" class="btn btn-primary">Nuevo registro </a>
+    <a id="modificarDatos" class="btn btn-success">Actualizar </a>
+    <a id="limpiarDatos" onclick="limpiarDatos()" class="btn btn-danger">Limpiar </a>
+
+</div>
+
+
 
 <div class="table-responsive">
     <table class="table table-primary">
@@ -17,21 +74,183 @@
                 <th>Descripcion</th>
                 @* <th>IsActive</th> *@
                 <th>Marca</th>
+                <th>Acciones</th>
             </tr>
         </thead>
-        <tbody>
-            @foreach (var item in Model)
+        <tbody id="listaDatos">
+@*              @foreach (var item in Model)
             {
                 <tr>
                     <td>@item.Id</td>
                     <td>@item.Name</td>
                     <td>@item.Descripcion</td>
-                    @* <td>@item.IsActive</td> *@
+                     <td>@item.IsActive</td> 
                     <td>@item.Marca</td>
 
                 </tr>
-            }
-
+            } *@
+ 
         </tbody>
     </table>
 </div>
+
+
+<script>
+
+    const API_URL = 'https://localhost:7299/Product';
+
+            function cargarDatos(){
+            limpiarDatos();
+            $.ajax(
+                {
+                    url: API_URL,
+                    method: 'GET',
+                    success: function(dato){
+                        console.log(dato);
+                        $("#listaDatos").empty();
+
+
+                            dato.forEach(
+                                soyItem =>
+                                    {
+                                            $("#listaDatos").append(`
+
+                                                <tr>
+                                                    <td>${soyItem.id}</td>
+                                                    <td>${soyItem.name}</td>
+                                                    <td>${soyItem.descripcion}</td>
+
+                                                    <td>${soyItem.marca}</td>
+                                                    <th>
+
+                                                        <a
+                                                            name=""
+                                                            id=""
+                                                            class="btn btn-primary"
+                                                            href="#"
+                                                            role="button"
+                                                            onclick="cargarEditar('${soyItem.id}','${soyItem.name}','${soyItem.descripcion}','${soyItem.marca}')"
+                                                            >Editar</a
+                                                        >
+
+                                                        <a
+                                                            name=""
+                                                            id=""
+                                                            class="btn btn-danger"
+                                                            href="#"
+                                                            role="button"
+                                                            >Eliminar</a
+                                                        >
+
+                                                    </th>
+                                                </tr>
+                                            `)
+                                        });
+
+
+
+                    },
+                    error: function(xhr, status, error){
+                        console.error("error " + error) ;
+                    }
+
+                }
+            );
+            // $.get(API_URL, function(dato){
+
+            //     console.log(dato);
+            //     //??? que no tenga idea ???
+            //         dato.forEach( soyItem => {
+
+            //         }
+            //     );
+            // })
+        }
+
+
+
+
+        window.cargarEditar = function (id, name, descripcion , marca){
+            $('#id').val(id);
+            $('#name').val(name);
+            $('#descripcion').val(descripcion);
+            $('#marca').val(marca);
+
+            $("#guardarDatos").hide();
+            $("#modificarDatos").show();
+
+
+               //         <a id="guardarDatos" class="btn btn-primary">Nuevo registro </a>
+    // <a id="modificarDatos" class="btn btn-success">Actualizar </a>
+
+        }
+
+        window.limpiarDatos = function(){
+        //function limpiarDatos(){
+            $('#id').val("");
+            $('#name').val("");
+            $('#descripcion').val("");
+            $('#marca').val("");
+
+            $("#modificarDatos").hide();
+            $("#guardarDatos").show();
+
+        }
+
+
+
+
+
+        $("#guardarDatos").click(function() {
+
+
+
+        const item =
+            {
+                id: 0,
+                name: $('#name').val(),
+                descripcion:  $('#descripcion').val(),
+                isActive:  true,
+                marca:  $('#marca').val()
+            };
+
+
+            console.log(item);
+
+            $.ajax({
+                url: API_URL,
+                type: "POST",
+                contentType: ' application/json',
+                data: JSON.stringify(item),
+
+                success: function(){
+                    alert("Salvando");
+
+                    cargarDatos();
+                },
+                error: function(xhr, status, error){
+                            console.error("error " + error) ;
+                            console.error("status " + status) ;
+                            console.error("xhr " + xhr) ;
+                }
+
+      
+            })
+
+  
+        });
+
+
+
+    $(document).ready(function(){
+
+
+    //         <a id="guardarDatos" class="btn btn-primary">Nuevo registro </a>
+    // <a id="modificarDatos" class="btn btn-success">Actualizar </a>
+
+        cargarDatos();
+        
+
+    });
+
+</script>

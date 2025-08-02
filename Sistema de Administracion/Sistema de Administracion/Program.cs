@@ -13,6 +13,24 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySQL(builder.Configuration.GetConnectionString("MySqlConnection"))
 );
 
+
+builder.Services.AddCors(
+    options =>
+    {
+        options.AddPolicy("PermirFrontend", policy =>
+        {
+            //policy.WithOrigins("https://localhost:7299")
+            policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+
+        }
+    );
+    }
+
+);
+
+
 //"ConnectionStrings": {
 //    "MySqlConnection": "server=srv863.hstgr.io;port=3306;database=u484426513_pac225;user=u484426513_pac225;password=rO46j4Qz/"
 //  },
@@ -46,5 +64,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+//app.UseCors("PermirFrontend");
 
 app.Run();
